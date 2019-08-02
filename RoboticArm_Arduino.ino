@@ -95,7 +95,7 @@ void loop()
       }
       else { //CINGO data detected
         if (1) {
-          //here I write on serial the data for the dc motor driver
+          //Here I write on serial the data for the dc motor driver
           //Only data on index 1 and 2 of the array are real data for the driver (buff[0] = 'A' and buff[3] = '\n')
           Serial.write(buff[1]);
           Serial.write(buff[2]);
