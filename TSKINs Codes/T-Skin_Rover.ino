@@ -73,13 +73,13 @@ void loop() {
   int pitchThreshold, rollThreshold, th1, th2;
 
   //base engine @ 50Hz (20msec)
-  if (GetCurrentMilli() >= (ticks + (1000 / 50))) {
-    ticks = GetCurrentMilli();
+  if (millis() >= (ticks + (1000 / 50))) {
+    ticks = millis();
     //debounce on GPP4 (activate /deactivate transmission)
     if (!gpp4.read()) {
-      if (GetCurrentMilli() >= lastTransmissionSwitch + debounceTime) {
+      if (millis() >= lastTransmissionSwitch + debounceTime) {
         transmission = !transmission;
-        lastTransmissionSwitch = GetCurrentMilli();
+        lastTransmissionSwitch = millis();
       }
     }
     if (transmission) {
@@ -192,26 +192,26 @@ void loop() {
       buffData[2] = 0x00;
       //debounce on GPP1 (rotate)
       if (!gpp2.read()) {
-        if (GetCurrentMilli() >= lastTransmissionSwitch + debounceTime) {
+        if (millis() >= lastTransmissionSwitch + debounceTime) {
           buffData[1] = 0x01;
           buffData[2] = 0xFF;
-          lastGPIO1Switch = GetCurrentMilli();
+          lastGPIO1Switch = millis();
         }
       }
       //debounce on GPP2 (rotate)
       if (!gpp1.read()) {
-        if (GetCurrentMilli() >= lastTransmissionSwitch + debounceTime) {
+        if (millis() >= lastTransmissionSwitch + debounceTime) {
           buffData[1] = 0x7F;
           buffData[2] = 0x80;
-          lastGPIO2Switch = GetCurrentMilli();
+          lastGPIO2Switch = millis();
         }
       }
       //debounce on GPP3 (stop)
       if (!gpp3.read()) {
-        if (GetCurrentMilli() >= lastTransmissionSwitch + debounceTime) {
+        if (millis() >= lastTransmissionSwitch + debounceTime) {
           buffData[1] = 0x00;
           buffData[2] = 0x00;
-          lastGPIO3Switch = GetCurrentMilli();
+          lastGPIO3Switch = millis();
         }
       }
       bleManager.writeToPeripheral((unsigned char *)buffData, 2);
